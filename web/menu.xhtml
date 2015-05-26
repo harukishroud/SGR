@@ -156,10 +156,7 @@
                                         </p:column>
                                         <p:column headerText="Preço" style="align:center;text-align:center;">
                                             <h:outputText value="R$ #{item.preco}" id="itemPrice" />
-                                        </p:column>
-                                        <p:column headerText="Qnt." style="align:center;text-align:center;width:50px;">
-                                            <p:inputText id="itemQuantity"  maxlength="2" style="width:32px;" />
-                                        </p:column>
+                                        </p:column>                                        
                                         <p:column style="width:50px;">
                                             <h:form>
                                                 <h:commandButton value="+" actionListener="#{menuController.addOrderItem(item)}"/>
@@ -204,6 +201,11 @@
                                         </p:dataTable>
                                     </div> 
                                     </h:form>
+                                    
+                                </div>
+                                <div class="panel-footer" style="height: 55px;">
+                                    <span class="glyphicon glyphicon-usd" aria-hidden="true" style="color:#D45744; margin-right:5px;padding-top: 5px;"></span><b>Total deste Pedido:</b><span class="ft-values">R$ #{menuController.orderBuilderPrice}</span>
+                                   <h:commandButton class="btn btn-default" value="Efetuar Pedido" style="float:right;"/>
                                 </div>
                             </div>
                         </div>

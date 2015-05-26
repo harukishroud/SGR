@@ -24,9 +24,9 @@ public class MenuController {
     private String selectedItemType = "Todos";
     private String itemName = "";
     private String itemType = "";
-    private float itemPrice = 0;
-
+    private float orderBuilderPrice = 0;
     boolean itemExists = false;
+    
 
     // Beans
     private ItemBean itemBean = new ItemBean();
@@ -62,6 +62,7 @@ public class MenuController {
     // Limpa pedido temporário.
     public void clearOrderBuilder() {
         orderBuilderList.clear();
+        orderBuilderPrice = 0;
     }
 
     // MÉTODO 03 - addOrderItem()
@@ -77,6 +78,9 @@ public class MenuController {
             // Caso o item exista a quantidade do item existente é incrementada
             if (orderBuilderItem.getNome() == orderBuilderList.get(i).getNome()) {
                 itemExists = true;
+                // Atualiza preço total do pedido temporário
+                orderBuilderPrice = orderBuilderPrice + orderBuilderItem.getPreco();
+                // Incrementa item
                 orderBuilderList.get(i).setQuantidade(orderBuilderList.get(i).getQuantidade() + 1);
                 break;
             // @ 04.2
@@ -93,8 +97,17 @@ public class MenuController {
             if (orderBuilderItem.getQuantidade() == 0) {
                 orderBuilderItem.setQuantidade(1);
             }
+            // Atualiza preço total do pedido temporário
+            orderBuilderPrice = orderBuilderPrice + orderBuilderItem.getPreco();
+            // Adiciona item
             orderBuilderList.add(orderBuilderItem);
         }
+    }
+    
+    // MÉTODO 04 - doOrder()
+    // Tranforma o pedido temporário em um pedido definitivo.
+    public void doOrder() throws ExceptionDAO {
+        
     }
 
     // <editor-fold desc="GET and SET" defaultstate="collapsed">
@@ -162,12 +175,12 @@ public class MenuController {
         this.itemType = itemType;
     }
 
-    public float getItemPrice() {
-        return itemPrice;
+    public float getOrderBuilderPrice() {
+        return orderBuilderPrice;
     }
 
-    public void setItemPrice(float itemPrice) {
-        this.itemPrice = itemPrice;
+    public void setOrderBuilderPrice(float orderBuilderPrice) {
+        this.orderBuilderPrice = orderBuilderPrice;
     }
 
     public ItemBean getOrderBuilderItem() {
