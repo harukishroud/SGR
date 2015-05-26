@@ -36,7 +36,6 @@ public class MenuController {
     // Lists
     private List<ItemBean> itemTypes = new ArrayList<ItemBean>();
     private List<ItemBean> itemList = new ArrayList<ItemBean>();
-    // private List<OrderBuilderBean> orderBuilderList = new ArrayList<OrderBuilderBean>();
     private List<ItemBean> orderBuilderList = new ArrayList<ItemBean>();
 
     // Inicia Services
@@ -62,7 +61,7 @@ public class MenuController {
     // MÉTODO 02 - clearOrderBuilder()
     // Limpa pedido temporário.
     public void clearOrderBuilder() {
-        getOrderBuilderList().clear();
+        orderBuilderList.clear();
     }
 
     // MÉTODO 03 - addOrderItem()
@@ -79,6 +78,7 @@ public class MenuController {
             if (orderBuilderItem.getNome() == orderBuilderList.get(i).getNome()) {
                 itemExists = true;
                 orderBuilderList.get(i).setQuantidade(orderBuilderList.get(i).getQuantidade() + 1);
+                break;
             // @ 04.2
             // Caso o item não exista a sequência ### 02 ### é habilitada
             } else {
@@ -89,16 +89,15 @@ public class MenuController {
         // ### 02 ###
         // Adiciona Item ao Pedido Temporário
         if (itemExists == false) {
-
+            
             if (orderBuilderItem.getQuantidade() == 0) {
                 orderBuilderItem.setQuantidade(1);
             }
-
             orderBuilderList.add(orderBuilderItem);
         }
     }
 
-    // <editor-fold desc="GET and SET">
+    // <editor-fold desc="GET and SET" defaultstate="collapsed">
     public ItemBean getItemBean() {
         return itemBean;
     }
