@@ -12,7 +12,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import sgr.bean.ItemBean;
 import sgr.bean.OrderBuilderBean;
-import sgr.bean.OrderItemsBean;
 import sgr.dao.ExceptionDAO;
 import sgr.service.ItemService;
 
@@ -43,6 +42,7 @@ public class MenuController {
     // Inicia Services
     private ItemService itemService = new ItemService();
 
+    /* CONSTRUTOR */
     public MenuController() throws ExceptionDAO {
 
         itemTypes = itemService.searchItemTypes();
@@ -50,36 +50,44 @@ public class MenuController {
 
     }
 
+    /* MÉTODOS */
+    // MÉTODO 01 - showSelectedTypeItems()
+    // Carrega a lista de items de acordo com seleção de tipo.
     public void showSelectedTypeItems() throws ExceptionDAO {
 
         setItemList(itemService.listItems(selectedItemType));
 
     }
 
+    // MÉTODO 02 - clearOrderBuilder()
+    // Limpa pedido temporário.
     public void clearOrderBuilder() {
         getOrderBuilderList().clear();
-        System.out.println("Pedido Limpado.");
     }
 
+    // MÉTODO 03 - addOrderItem()
+    // Adiciona item ao pedido temporário.
     public void addOrderItem(ItemBean item) throws ExceptionDAO {
 
         orderBuilderItem = item;        
 
-        // Varre Array buscando por Item já Existente
-        for (int i = 0; i < orderBuilderList.size(); i++) {
+        // ### 01 ###
+        // Verifica Repetição de Items
+        for (int i = 0; i < orderBuilderList.size(); i++) {            
+            // @ 01.1
+            // Caso o item exista a quantidade do item existente é incrementada
             if (orderBuilderItem.getNome() == orderBuilderList.get(i).getNome()) {
-
                 itemExists = true;
                 orderBuilderList.get(i).setQuantidade(orderBuilderList.get(i).getQuantidade() + 1);
-
+            // @ 04.2
+            // Caso o item não exista a sequência ### 02 ### é habilitada
             } else {
-                
                 itemExists = false;
-                
             }
         }
 
-        // Executado se item não existente
+        // ### 02 ###
+        // Adiciona Item ao Pedido Temporário
         if (itemExists == false) {
 
             if (orderBuilderItem.getQuantidade() == 0) {
@@ -122,25 +130,15 @@ public class MenuController {
     public void setSelectedItemType(String selectedItemType) {
         this.selectedItemType = selectedItemType;
     }
-    // </editor-fold>
-
-    public List<ItemBean> getItemList() {
+    
+       public List<ItemBean> getItemList() {
         return itemList;
     }
 
     public void setItemList(List<ItemBean> itemList) {
         this.itemList = itemList;
     }
-    /*
-     public List<OrderBuilderBean> getOrderBuilderList() {
-     return orderBuilderList;
-     }
-
-     public void setOrderBuilderList(List<OrderBuilderBean> orderBuilderList) {
-     this.orderBuilderList = orderBuilderList;
-     }
-     */
-
+    
     public OrderBuilderBean getOrderBuilderBean() {
         return orderBuilderBean;
     }
@@ -188,5 +186,6 @@ public class MenuController {
     public void setOrderBuilderList(List<ItemBean> orderBuilderList) {
         this.orderBuilderList = orderBuilderList;
     }
+    // </editor-fold>
 
 }
