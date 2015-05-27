@@ -159,7 +159,9 @@
                                         </p:column>                                        
                                         <p:column style="width:50px;">
                                             <h:form>
-                                                <h:commandButton value="+" actionListener="#{menuController.addOrderItem(item)}"/>
+                                                <h:commandButton value="+" class="btn btn-default btn-sm" > 
+                                                    <f:ajax event="click" render="@all currentOrder" listener="#{menuController.addOrderItem(item)}"></f:ajax>
+                                                </h:commandButton>
                                             </h:form>
                                         </p:column>
                                     </p:dataTable>  
@@ -181,7 +183,9 @@
                                   
                                     <h:form>
                                         <span style="margin-right:10px;font-size:14px;">Total de Items</span><span class="badge">#{menuController.orderBuilderList.size()}</span>
-                                        <h:commandButton class="btn btn-default" value="Limpar Pedido" style="float:right;" actionListener="#{menuController.clearOrderBuilder()}"/>
+                                        <h:commandButton class="btn btn-default" value="Limpar Pedido" style="float:right;">
+                                            <f:ajax event="click" render="@all currentOrder" listener="#{menuController.clearOrderBuilder()}"></f:ajax>
+                                        </h:commandButton>
                                     </h:form>
                                         
                                     <div style="padding-bottom: 30px;">
@@ -189,6 +193,7 @@
 
                                     <h:form>
                                     <div class="row" style="max-height:500px;overflow-y: scroll;">
+                                        
                                         <p:dataTable id="currentOrder" tableStyleClass="table table-striped" emptyMessage="Nenhum pedido realizado." var="currentOrderItem" value="#{menuController.orderBuilderList}">
                                             <p:column headerText="">
                                                 <h:outputText style="color:#D45744;" value="#{currentOrderItem.nome}" id="itemName"  />                                    
@@ -196,7 +201,12 @@
                                             <p:column headerText="Qnt." style="align:center;text-align:center;width:50px;">
                                                 <h:outputText value="#{currentOrderItem.quantidade}" id="itemQuantity"  />
                                             </p:column>                                            
-                                            <p:column style="width:50px;">                                      
+                                            <p:column style="width:50px;"> 
+                                            <h:form>
+                                                <h:commandButton class="btn btn-default btn-sm" value="-">
+                                                    <f:ajax event="click" render="@all currentOrder" listener="#{menuController.remOrderItem(currentOrderItem)}"></f:ajax>
+                                                </h:commandButton>
+                                            </h:form>
                                             </p:column>                                               
                                         </p:dataTable>
                                     </div> 

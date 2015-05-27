@@ -16,73 +16,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import sgr.bean.ItemBean;
 import sgr.sql.QueryBuilder;
 
 public class OrderDAO {
     
-    /*
-    public void newOrder(OrderBean order) throws SQLException {
-            ConnectionBuilder connection = new ConnectionBuilder();
-            Connection conn = connection.getConnection();
-            String sql = "INSERT INTO PEDIDO("
-                  + "status,"
-                  + "data,"
-                  + "mesa_numero,"
-                  + "conta_cod,"
-                  + "conta_cliente_codigo,"
-                  + "conta_cliente_cpf)" 
-                  + "values(?,?,?,?,?,?);";
-                  
-                 
-          System.out.println(sql);
-          PreparedStatement ps = conn.prepareStatement(sql);
-          
-          ps.setString(1, order.getStatus());
-        
-        //aqui ocorre uma conversao de java.util.date para sql.util.date sem essa validacao ocorre erro na hora do insert 
-           try {
-            ps.setDate(2, new java.sql.Date(order.getData_hora().getTime()));
-        } catch (NullPointerException e) {
-            ps.setDate(2, null);
-        } 
-          ps.setInt(3, order.getMesaCod());
-          ps.setInt(4, order.getContaCod());
-          ps.setInt(5, order.getClienteCod());
-          ps.setString(6, order.getClienteCpf());
-          ps.execute();
-          ps.close();
-          conn.close();
-    }
-    */
-    
-    /*
-    public void alterarPedido(PedidoBean pPedido) throws SQLException {
-         ConnectionBuilder conexao = new ConnectionBuilder();
-        Connection conn = conexao.getConnection();
-        String sql = "UPDATE PEDIDO set status=?,mesa_numero=? where codigo=?";
-        PreparedStatement ps = conn.prepareStatement(sql);
-        
-        ps.setString(1, pPedido.getStatus());
-        ps.setInt(2, pPedido.getMesaCod());
-        ps.setInt(3, pPedido.getCodigo());
-        ps.execute();
-        ps.close();
-        conn.close();
+    public void addOrder(ItemBean item) throws SQLException, ExceptionDAO {
         
     }
-    */
-    /*
-    public void deletarPedido(PedidoBean pPedido) throws SQLException {
-         ConnectionBuilder conexao = new ConnectionBuilder();
-        Connection conn = conexao.getConnection();
-        String sql = "DELETE FROM PEDIDO WHERE CODIGO = ?";
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setInt(1, pPedido.getCodigo());
-        ps.execute();
-        ps.close();
-        conn.close();
-    }
-    */
     
     public List<OrderBean> listOrders(QueryBuilder query) throws SQLException, ExceptionDAO {
         

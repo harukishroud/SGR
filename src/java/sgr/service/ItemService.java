@@ -26,14 +26,10 @@ public class ItemService {
     public List<ItemBean> listItems(String selectedItemType) throws ExceptionDAO {
         ItemDAO itemDAO = new ItemDAO();
         List<ItemBean> listItem = new ArrayList<ItemBean>();
-        QueryBuilder query = new QueryBuilder();
+        QueryBuilder query = new QueryBuilder();   
         
         if ("Todos".equals(selectedItemType)){
-            System.out.println("OK!");
-        }
-        
-        if ("Todos".equals(selectedItemType)){
-            System.out.println("[ITEM SERVICE][01] Valor atual de 'selectedItemType' : " + selectedItemType + ".");           
+            System.out.println("[ITEM SERVICE][01] Valor atual de 'selectedItemType' : Todos.");           
 
             try {
                 listItem = itemDAO.listAllItems();
@@ -51,8 +47,6 @@ public class ItemService {
                 Logger.getLogger(ItemService.class.getName()).log(Level.SEVERE, null, ex);
             }   
         }
-       
-        
         
         return listItem;
     }

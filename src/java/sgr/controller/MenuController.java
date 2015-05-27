@@ -61,8 +61,9 @@ public class MenuController {
     // MÉTODO 02 - clearOrderBuilder()
     // Limpa pedido temporário.
     public void clearOrderBuilder() {
+        System.out.println("[MENU CONTROLLER][02] Pedido temporário reiniciado." );
         orderBuilderList.clear();
-        orderBuilderPrice = 0;
+        orderBuilderPrice = 0;        
     }
 
     // MÉTODO 03 - addOrderItem()
@@ -77,15 +78,19 @@ public class MenuController {
             // @ 01.1
             // Caso o item exista a quantidade do item existente é incrementada
             if (orderBuilderItem.getNome() == orderBuilderList.get(i).getNome()) {
+                System.out.println("[MENU CONTROLLER][03][01.1] Item '" + orderBuilderItem.getNome() + "' existente no pedido temporário atual!" );
                 itemExists = true;
                 // Atualiza preço total do pedido temporário
                 orderBuilderPrice = orderBuilderPrice + orderBuilderItem.getPreco();
                 // Incrementa item
                 orderBuilderList.get(i).setQuantidade(orderBuilderList.get(i).getQuantidade() + 1);
+                System.out.println("[MENU CONTROLLER][03][01.1] Item '" + orderBuilderItem.getNome() + "' incrementado para '"
+                        + orderBuilderList.get(i).getQuantidade() + "'." );
                 break;
-            // @ 04.2
+            // @ 01.2
             // Caso o item não exista a sequência ### 02 ### é habilitada
             } else {
+                System.out.println("[MENU CONTROLLER][03][01.2] Item '" + orderBuilderItem.getNome() + "' não encontrado no pedido temporário atual.");
                 itemExists = false;
             }
         }
@@ -101,12 +106,46 @@ public class MenuController {
             orderBuilderPrice = orderBuilderPrice + orderBuilderItem.getPreco();
             // Adiciona item
             orderBuilderList.add(orderBuilderItem);
+            System.out.println("[MENU CONTROLLER][03][02] Item '" + orderBuilderItem.getNome() + "' adicionado ao pedido temporário atual.");
+
         }
     }
     
-    // MÉTODO 04 - doOrder()
-    // Tranforma o pedido temporário em um pedido definitivo.
-    public void doOrder() throws ExceptionDAO {
+    // MÉTODO 04 - remOrderItem()
+    // Remove item do pedido temporário.
+    public void remOrderItem(ItemBean item) throws ExceptionDAO {        
+        
+        orderBuilderItem = item;        
+        
+        for (int i = 0; i < orderBuilderList.size(); i++) {            
+            
+            if (orderBuilderItem.getNome() == orderBuilderList.get(i).getNome()) {
+                
+                if (orderBuilderList.get(i).getQuantidade() == 1) {
+                    orderBuilderList.remove(i);
+                    System.out.println("[MENU CONTROLLER][04][01.1] Item '" + orderBuilderItem.getNome() + "' removido do pedido temporário atual.");
+                    break;
+                } else {
+                    orderBuilderList.get(i).setQuantidade(orderBuilderList.get(i).getQuantidade() - 1);
+                    System.out.println("[MENU CONTROLLER][04][01.2] Item '" + orderBuilderItem.getNome() + "' decrementado para '"
+                            + orderBuilderList.get(i).getQuantidade() + "'." );
+                    break;
+                }
+                
+            }
+        }
+    }
+    
+    // MÉTODO 05 - buildOrder()
+    // Realiza o pedido oficial com base no pedido temporário.
+    public void buildOrder() throws ExceptionDAO {
+        
+        for (int i = 0; i < orderBuilderList.size(); i++) {
+            
+            
+            
+            
+        }
         
     }
 
