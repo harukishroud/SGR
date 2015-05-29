@@ -181,6 +181,7 @@ public class  ClientController {
                 session.setAttribute("currentUserCode", clientBean.getCodigo());
                 session.setAttribute("currentTable", tableBean.getNumero());
                 session.setAttribute("currentSessionCode", sessionBean.getCodigo());
+                session.setAttribute("currentUsername", clientBean.getNome_usuario());
                 
             }
 

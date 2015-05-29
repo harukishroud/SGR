@@ -94,16 +94,7 @@
                 <ul class="nav navbar-nav navbar-right" style="margin-right:20px;">
 
                     <!-- [I] Configurações -->
-                    <li><div class="dropdown" style="margin-top:8px; margin-right:5px;">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                                Configurações
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Alterar Dados Cadastrais</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Alterar Senha</a></li>
-                            </ul>
-                        </div></li>
+                    
 
 
                     <!-- [I] Logout Button -->
@@ -128,67 +119,72 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">Meus Dados</h3>
                     </div>
-                    <div class="panel-body" >
+                    <h:form > 
+                    <div class="panel-body" style="max-height: 500px;overflow-y: scroll;" >
                         <p>Bem vindo ao seu 'perfil'. Aqui você poderá visualizar e alterar alguns de seus dados cadastrais.</p>
 
-                        <form style="max-height: 500px;overflow-y: scroll;"> 
+                        
 
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Nome</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder=" " readonly="true"/>
+                                <label>Nome</label>
+                                <input value="#{profileController.updatedClientBean.nome}" type="text" class="form-control" id="nome" placeholder=" " readonly="true"/>
                             </div>
                             <div class="form-group ">
-                                <label for="exampleInputEmail1">Data de Nascimento</label>
-                                <input  type="date" class="form-control" id="exampleInputEmail1" placeholder=" " readonly="true"/>
+                                <label>Data de Nascimento</label>
+                                <input value="#{profileController.updatedClientBean.data_nasc}" type="date" class="form-control" id="data_nasc" placeholder=" " readonly="true"/>
                             </div>
                             <div class="form-group ">
-                                <label for="exampleInputEmail1">Endereço</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder=" "/>
+                                <label>Endereço</label>
+                                <input value="#{profileController.updatedClientBean.endereco}" type="text" class="form-control" id="endereco" placeholder=" "/>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Número</label>
-                                <input type="number" class="form-control" id="exampleInputEmail1" placeholder=" " />
+                                <label>Número</label>
+                                <input value="#{profileController.updatedClientBean.numero}" type="number" class="form-control" id="numero" placeholder=" " />
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Cidade</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder=" "/>
+                                <label>Cidade</label>
+                                <input value="#{profileController.updatedClientBean.cidade}" type="text" class="form-control" id="cidade" placeholder=" "/>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Bairro</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder=" "/>
+                                <label>Bairro</label>
+                                <input value="#{profileController.updatedClientBean.bairro}" type="text" class="form-control" id="bairro" placeholder=" "/>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Estado</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder=" "/>
+                                <label>Estado</label>
+                                <input value="#{profileController.updatedClientBean.estado}" type="text" class="form-control" id="exampleInputEmail1" placeholder=" "/>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">CPF</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder=" " readonly="true"/>
+                                <label>CPF</label>
+                                <input value="#{profileController.updatedClientBean.cpf}" type="text" class="form-control" id="exampleInputEmail1" placeholder=" " readonly="true"/>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">RG</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder=" " readonly="true"/>
+                                <label>RG</label>
+                                <input value="#{profileController.updatedClientBean.rg}" type="text" class="form-control" id="exampleInputEmail1" placeholder=" " readonly="true"/>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Telefone Residencial</label>
-                                <input type="tel" class="form-control" id="exampleInputEmail1" placeholder=" " />
+                                <label>Telefone Residencial</label>
+                                <input value="#{profileController.updatedClientBean.tel_res}" type="tel" class="form-control" id="exampleInputEmail1" placeholder=" " />
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Celular</label>
-                                <input type="tel" class="form-control" id="exampleInputEmail1" placeholder=" " />
+                                <label>Celular</label>
+                                <input value="#{profileController.updatedClientBean.tel_mov}" type="tel" class="form-control" id="exampleInputEmail1" placeholder=" " />
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Email</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder=" " />
-                            </div>
+                                <label>Email</label>
+                                <input value="#{profileController.updatedClientBean.email}" type="email" class="form-control" id="exampleInputEmail1" placeholder=" " />
+                            </div> 
 
-                        </form>
+                                                        
+
+
+                        
 
                     </div>
                     <div class="panel-footer" style="height:55px;">
-                        <button type="button" style="float:left" class="btn btn-default">Voltar ao Menu Principal</button>
-                        <button type="button" style="float:right" class="btn btn-success">Salvar Alterações</button>
+                        <h:commandButton class="btn btn-default" style="float:left" value="Voltar ao Menu Principal" actionListener="#{clientController.goTo('/mainclient.xhtml')}"/>
+                        <h:commandButton class="btn btn-success" style="float:right" action="#{profileController.updateProfile()}" value="Salvar Alterações"  />
                     </div>
+                    </h:form>
 
                 </div>
 

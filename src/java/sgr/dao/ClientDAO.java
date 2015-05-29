@@ -69,5 +69,36 @@ public class ClientDAO {
         return clientList;
        
     }
-
+    
+    public void updateClient(ClientBean client) throws ExceptionDAO, SQLException {
+        
+        ConnectionBuilder conexao = new ConnectionBuilder();
+        Connection conn = conexao.getConnection();
+        
+        System.out.println("[CLIENT DAO] Preparando para atualizar cliente.");
+        
+        String sql = "UPDATE cliente SET endereco=?,numero=?,complemento=?,"
+                + "cidade=?,bairro=?,estado=?,tel_residencial=?,tel_movel=?,"
+                + "email=?,senha=? where codigo=?";
+        
+        PreparedStatement ps = conn.prepareStatement(sql);
+        
+        ps.setString(1, client.getEndereco());
+        ps.setInt(2, client.getNumero());
+        ps.setString(3, client.getComplemento());
+        ps.setString(4, client.getCidade());
+        ps.setString(5, client.getBairro());
+        ps.setString(6, client.getEstado());
+        ps.setLong(7, client.getTel_res());
+        ps.setLong(8, client.getTel_mov());
+        ps.setString(9, client.getEmail());
+        ps.setString(10, client.getSenha());
+        ps.setInt(11, client.getCodigo());
+        ps.execute();
+        ps.close();
+        conn.close();      
+        
+        System.out.println("[CLIENT DAO] Cliente atualizado.");
+        
+    }
 }
