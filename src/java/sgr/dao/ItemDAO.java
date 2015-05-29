@@ -28,18 +28,19 @@ public class ItemDAO {
         Connection conn = connection.getConnection();
         List<ItemBean> listItem = new ArrayList<ItemBean>();
         
-        String sql = "SELECT NOME, COMPOSICAO, PRECO FROM item" + query.buildQuery();
+        String sql = "SELECT Codigo, Nome, Composicao, Preco FROM item" + query.buildQuery();
         PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         
         while(rs.next()) {
-            ItemBean item = new ItemBean();            
+            ItemBean item = new ItemBean();
+            item.setCodigo(rs.getInt("Codigo"));
             item.setNome(rs.getString("Nome"));
             item.setComposicao(rs.getString("Composicao"));            
             item.setPreco(rs.getFloat("Preco"));
             listItem.add(item);    
             
-            System.out.println("[ITEM DAO][01] Item encontrado: Nome '" + rs.getString("Nome")
+            System.out.println("[ITEM DAO][01] Item encontrado: Codigo '" + rs.getString("Codigo") + "', Nome '" + rs.getString("Nome")
                     + "', Composição '" + rs.getString("Composicao") + "' e Preço '" + rs.getFloat("Preco") + "'.");
         }
         
@@ -55,18 +56,19 @@ public class ItemDAO {
         Connection conn = connection.getConnection();
         List<ItemBean> listItem = new ArrayList<ItemBean>();
         
-        String sql = "SELECT NOME, COMPOSICAO, PRECO FROM item";
+        String sql = "SELECT CODIGO, NOME, COMPOSICAO, PRECO FROM item";
         PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         
         while(rs.next()) {
-            ItemBean item = new ItemBean();            
+            ItemBean item = new ItemBean();   
+            item.setCodigo(rs.getInt("Codigo"));
             item.setNome(rs.getString("Nome"));
             item.setComposicao(rs.getString("Composicao"));            
             item.setPreco(rs.getFloat("Preco"));
             listItem.add(item);    
             
-            System.out.println("[ITEM DAO][01] Item encontrado: Nome '" + rs.getString("Nome")
+            System.out.println("[ITEM DAO][01] Item encontrado: Codigo '" + rs.getString("Codigo") + "', Nome '" + rs.getString("Nome")
                     + "', Composição '" + rs.getString("Composicao") + "' e Preço '" + rs.getFloat("Preco") + "'.");
         }
         

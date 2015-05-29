@@ -10,8 +10,13 @@ package sgr.bean;
 public class OrderBean {
     
     private int codigo;
-    private String status;
-
+    private String pedidoStatus;
+    private int mesa;
+    private int codigoConta;
+    private int codigoCliente;
+    private Long codigoClienteCpf;
+    private String itemStatus;
+        
 
     // <editor-fold defaultstate="collapsed" desc="GET and SET"> 
     public int getCodigo() {
@@ -22,16 +27,61 @@ public class OrderBean {
         this.codigo = codigo;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
+   
 
 
     
           // </editor-fold>   
-    
+
+
+
+    public String getPedidoStatus() {
+        return pedidoStatus;
+    }
+
+    public void setPedidoStatus(String pedidoStatus) {
+        this.pedidoStatus = pedidoStatus;
+    }
+
+    public int getMesa() {
+        return mesa;
+    }
+
+    public void setMesa(int mesa) {
+        this.mesa = mesa;
+    }
+
+    public int getCodigoConta() {
+        return codigoConta;
+    }
+
+    public void setCodigoConta(int codigoConta) {
+        this.codigoConta = codigoConta;
+    }
+
+    public int getCodigoCliente() {
+        return codigoCliente;
+    }
+
+    public void setCodigoCliente(int codigoCliente) {
+        this.codigoCliente = codigoCliente;
+    }
+
+    public Long getCodigoClienteCpf() {
+        return codigoClienteCpf;
+    }
+
+    public void setCodigoClienteCpf(Long codigoClienteCpf) {
+        this.codigoClienteCpf = codigoClienteCpf;
+    }
+
+    public String getItemStatus() {
+        return itemStatus;
+    }
+
+    public void setItemStatus(String itemStatus) {
+        this.itemStatus = itemStatus;
+    }
+
+
 }

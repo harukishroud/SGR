@@ -5,6 +5,7 @@
  IDINALOG REBORN © 2015
  */
 
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -45,14 +46,15 @@ public class ProfileController {
         
         // Busca dados do Cliente
         listClient = clientService.pullClientData(currentUsername);
-        updatedClientBean = listClient.get(0);
+        clientBean = listClient.get(0);
             
     }
     
-    public void updateProfile() {
+    public void updateProfile() throws ExceptionDAO, ClassNotFoundException {
         System.out.println("[PROFILE CONTROLLER] Iniciando atualização do cliente.");
+        
         ClientService clientService = new ClientService();
-        clientService.updateClient(updatedClientBean);
+        clientService.updateClient(clientBean);
     }
 
     // <editor-fold desc="GET and SET" defaultstate="collapsed">

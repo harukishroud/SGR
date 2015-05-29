@@ -16,12 +16,43 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+import sgr.bean.ClientBean;
 import sgr.bean.ItemBean;
 import sgr.sql.QueryBuilder;
 
 public class OrderDAO {
     
-    public void addOrder(ItemBean item) throws SQLException, ExceptionDAO {
+    // HTTP Session
+    private HttpSession session;
+    
+    public void newOrder(ClientBean client) throws SQLException, ExceptionDAO {
+        
+        int mesaAtual = (int)  getSession().getAttribute("currentTable");
+        long sessionAtual = (long) getSession().getAttribute("currentSessionCode");
+        
+        System.out.println("Mesa: " + mesaAtual);
+        System.out.println("Session: " + sessionAtual);
+        
+        // Inicia Services
+        FacesContext ctx = FacesContext.getCurrentInstance();
+
+        // Inicia HTTPSessiosetSessions(ession = (HttpSession) ctx.getExternalContext().getSe)ssion(false);
+        
+        ConnectionBuilder connection = new ConnectionBuilder();
+        Connection conn = connection.getConnection();
+        
+        // Cria novo Pedido        
+        String sql = "INSERT INTO pedido(MESA_NUMERO,CONTA_CODIGO,CONTA_CLIENTE_CODIGO,CONTA_CLIENTE_CPF) VALUES (?,?,?,?)";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        
+        ps.setInt(1, mesaAtual);
+        ps.setLong(2, sessionAtual);
+        ps.setInt(3, client.getCodigo());
+        ps.setLong(4, client.getCpf());
+        ps.execute();
+        ps.close();              
         
     }
     
@@ -38,7 +69,8 @@ public class OrderDAO {
         while(rs.next()) {
             OrderBean order = new OrderBean();
             order.setCodigo(rs.getInt("p.Codigo"));
-            order.setStatus(rs.getString("pi.Status"));
+            order.setItemStatus(rs.getString("pi.Status"));
+            order.setPedidoStatus(rs.getString("p.Status"));
             
             listOrder.add(order);
         }
@@ -71,9 +103,9 @@ public class OrderDAO {
             orderItem.setStatus_pedido(rs.getString("it.Status"));
             orderItem.setQuantidade_item_pedido(rs.getInt("pi.Quantidade"));
             orderItem.setNome_item(rs.getString("it.Nome"));
-            
-            itemList.add(orderItem);
-        }
+              }
+
+   
         
         rs.close();
         ps.close();
@@ -81,6 +113,14 @@ public class OrderDAO {
         
         return itemList;
         
+    }
+
+    public HttpSession getSession() {
+        return session;
+    }
+
+    public void setSession(HttpSession session) {
+        this.session = session;
     }
     
 }

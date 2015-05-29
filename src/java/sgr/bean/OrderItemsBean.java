@@ -11,6 +11,7 @@ public class OrderItemsBean {
     
     private int codigo_pedido;
     private String status_pedido;
+    private int codigo_item;
     private String nome_item;
     private int quantidade_item_pedido;
 
@@ -44,6 +45,14 @@ public class OrderItemsBean {
 
     public void setQuantidade_item_pedido(int quantidade_item_pedido) {
         this.quantidade_item_pedido = quantidade_item_pedido;
+    }
+
+    public int getCodigo_item() {
+        return codigo_item;
+    }
+
+    public void setCodigo_item(int codigo_item) {
+        this.codigo_item = codigo_item;
     }
     
     

@@ -6,14 +6,23 @@
  */
 package sgr.controller;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+import sgr.bean.ClientBean;
 import sgr.bean.ItemBean;
+import sgr.bean.OrderBean;
 import sgr.bean.OrderBuilderBean;
+import sgr.bean.OrderItemsBean;
 import sgr.dao.ExceptionDAO;
+import sgr.service.ClientService;
 import sgr.service.ItemService;
+import sgr.service.OrderItemService;
+import sgr.service.OrderService;
 
 @SessionScoped
 @ManagedBean(name = "menuController")
@@ -21,31 +30,49 @@ import sgr.service.ItemService;
 public class MenuController {
 
     /* VARIAVEIS */
+    private String clientUsername = "";
     private String selectedItemType = "Todos";
     private String itemName = "";
     private String itemType = "";
     private float orderBuilderPrice = 0;
     boolean itemExists = false;
     
-
     // Beans
     private ItemBean itemBean = new ItemBean();
     private ItemBean orderBuilderItem = new ItemBean();
+    private OrderBean orderBean = new OrderBean();
     private OrderBuilderBean orderBuilderBean = new OrderBuilderBean();
+    private ClientBean clientBean = new ClientBean();
+    private OrderItemsBean orderItemBean = new OrderItemsBean();
 
     // Lists
     private List<ItemBean> itemTypes = new ArrayList<ItemBean>();
     private List<ItemBean> itemList = new ArrayList<ItemBean>();
     private List<ItemBean> orderBuilderList = new ArrayList<ItemBean>();
+    private List<ClientBean> clientList = new ArrayList<ClientBean>();
+    private List<OrderBean> orderList = new ArrayList<OrderBean>();
 
     // Inicia Services
+    
     private ItemService itemService = new ItemService();
+    private OrderService orderService = new OrderService();
+    private FacesContext ctx = FacesContext.getCurrentInstance();
+    private ClientService clientService = new ClientService();
+    private OrderItemService orderItemService = new OrderItemService();
 
+    
+     // HTTP Session
+    private HttpSession session;
+    
+    
     /* CONSTRUTOR */
     public MenuController() throws ExceptionDAO {
 
         itemTypes = itemService.searchItemTypes();
         setItemList(itemService.listItems(selectedItemType));
+        
+        // Inicia HTTPSession
+        session = (HttpSession) ctx.getExternalContext().getSession(false);
 
     }
 
@@ -107,6 +134,8 @@ public class MenuController {
             // Adiciona item
             orderBuilderList.add(orderBuilderItem);
             System.out.println("[MENU CONTROLLER][03][02] Item '" + orderBuilderItem.getNome() + "' adicionado ao pedido temporário atual.");
+            System.out.println("[MENU CONTROLLER][03][02] Codigo do item: '" + orderBuilderItem.getCodigo() + "'.");
+
 
         }
     }
@@ -138,14 +167,32 @@ public class MenuController {
     
     // MÉTODO 05 - buildOrder()
     // Realiza o pedido oficial com base no pedido temporário.
-    public void buildOrder() throws ExceptionDAO {
+    public void buildOrder() throws ExceptionDAO, SQLException {
         
-        for (int i = 0; i < orderBuilderList.size(); i++) {
-            
-            
-            
-            
-        }
+        System.out.println("NYAAAAAAAAAAAAAAAAAAAH~~~~");
+        
+        // Inicia HTTPSession
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        session = (HttpSession) ctx.getExternalContext().getSession(false);
+        
+        clientUsername = (String) session.getAttribute("currentUsername");
+        
+        // Coleta dados do Cliente
+        clientList = clientService.pullClientData(clientUsername);
+        clientBean = clientList.get(0);
+        
+        // Configura Order Bean
+        orderService.newOrder(clientBean);
+        
+        // Busca Pedido Aberto        
+        orderList = orderService.listOrders((long) session.getAttribute("currentSession"));
+        orderItemBean.setCodigo_pedido(orderList.get(0).getCodigo());
+        orderItemBean.setNome_item(orderBuilderItem.getNome());
+        orderItemBean.setQuantidade_item_pedido(orderBuilderItem.getQuantidade());
+        orderItemBean.setStatus_pedido("EM ANDAMENTO");
+        
+        orderItemService.newOrderItem(orderItemBean);               
+        
         
     }
 
@@ -237,6 +284,95 @@ public class MenuController {
     public void setOrderBuilderList(List<ItemBean> orderBuilderList) {
         this.orderBuilderList = orderBuilderList;
     }
-    // </editor-fold>
+   
+    public ClientBean getClientBean() {
+        return clientBean;
+    }
+
+    public void setClientBean(ClientBean clientBean) {
+        this.clientBean = clientBean;
+    }
+
+    public List<ClientBean> getClientList() {
+        return clientList;
+    }
+
+    public void setClientList(List<ClientBean> clientList) {
+        this.clientList = clientList;
+    }
+
+    public FacesContext getCtx() {
+        return ctx;
+    }
+
+    public void setCtx(FacesContext ctx) {
+        this.ctx = ctx;
+    }
+
+    public HttpSession getSession() {
+        return session;
+    }
+
+    public void setSession(HttpSession session) {
+        this.session = session;
+    }
+    
+
+    public String getClientUsername() {
+        return clientUsername;
+    }
+
+    public void setClientUsername(String clientUsername) {
+        this.clientUsername = clientUsername;
+    }
+
+    public OrderService getOrderService() {
+        return orderService;
+    }
+
+    public void setOrderService(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
+    public ClientService getClientService() {
+        return clientService;
+    }
+
+    public void setClientService(ClientService clientService) {
+        this.clientService = clientService;
+    }
+     // </editor-fold>
+
+    public OrderBean getOrderBean() {
+        return orderBean;
+    }
+
+    public void setOrderBean(OrderBean orderBean) {
+        this.orderBean = orderBean;
+    }
+
+    public List<OrderBean> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<OrderBean> orderList) {
+        this.orderList = orderList;
+    }
+
+    public OrderItemsBean getOrderItemBean() {
+        return orderItemBean;
+    }
+
+    public void setOrderItemBean(OrderItemsBean orderItemBean) {
+        this.orderItemBean = orderItemBean;
+    }
+
+    public OrderItemService getOrderItemService() {
+        return orderItemService;
+    }
+
+    public void setOrderItemService(OrderItemService orderItemService) {
+        this.orderItemService = orderItemService;
+    }
 
 }

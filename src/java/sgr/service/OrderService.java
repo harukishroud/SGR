@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sgr.bean.ClientBean;
 import sgr.dao.ExceptionDAO;
 import sgr.sql.QueryBuilder;
 import sgr.sql.QueryGender;
@@ -22,6 +23,16 @@ import sgr.sql.QueryOperation;
 import sgr.sql.QueryType;
 
 public class OrderService {
+    
+    public void newOrder(ClientBean client) throws SQLException, ExceptionDAO {
+        try {
+            OrderDAO orderDAO = new OrderDAO();
+            orderDAO.newOrder(client);
+            System.out.println("[ORDER SERVICE] Novo pedido adicionado para o cliente '" + client.getNome_usuario() + "'.");
+        } catch (SQLException ex){
+            System.out.println("[ORDER SERVICE] ERRO: Falha ao criar novo pedido!");
+        }
+    }
     
     public List<OrderBean> listOrders(long sessionCode) throws ExceptionDAO {
         
@@ -59,38 +70,5 @@ public class OrderService {
         return orderItemList;
     }
     
-    /*
-    public void abrirPedido(PedidoBean pPedido) {
-        PedidoDAO pDAO = new PedidoDAO();
-        
-        if(pPedido.getCodigo() == 0) {
-            
-            try {
-                pDAO.abrirPedido(pPedido);
-            } catch (SQLException ex) {
-                Logger.getLogger(OrderService.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }else {
-            
-            try {
-                pDAO.alterarPedido(pPedido);
-            } catch (SQLException ex) {
-                Logger.getLogger(OrderService.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-    */
-    /*
-    public void deletarPedido(PedidoBean pPedido) {
-        PedidoDAO pDAO = new PedidoDAO();
-        
-        try {
-            pDAO.deletarPedido(pPedido);
-        } catch (SQLException ex) {
-            Logger.getLogger(OrderService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }
-    */
     
 }

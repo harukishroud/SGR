@@ -147,6 +147,7 @@ public class  ClientController {
                 
                 // Salva dados atuais no HTTPSession
                 session.setAttribute("currentClientName", clientBean.getNome());
+                session.setAttribute("currentUsername", clientBean.getNome_usuario());
                 session.setAttribute("currentUserCode", clientBean.getCodigo());
                 session.setAttribute("currentTable", tableBean.getNumero());
                 session.setAttribute("currentSessionCode", sessionBean.getCodigo());

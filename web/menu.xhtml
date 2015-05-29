@@ -191,7 +191,7 @@
                                     <div style="padding-bottom: 30px;">
                                     </div>
 
-                                    <h:form>
+                                    <h:form id="temporaryOrder">
                                     <div class="row" style="max-height:500px;overflow-y: scroll;">
                                         
                                         <p:dataTable id="currentOrder" tableStyleClass="table table-striped" emptyMessage="Nenhum pedido realizado." var="currentOrderItem" value="#{menuController.orderBuilderList}">
@@ -215,7 +215,9 @@
                                 </div>
                                 <div class="panel-footer" style="height: 55px;">
                                     <span class="glyphicon glyphicon-usd" aria-hidden="true" style="color:#D45744; margin-right:5px;padding-top: 5px;"></span><b>Total deste Pedido:</b><span class="ft-values">R$ #{menuController.orderBuilderPrice}</span>
-                                   <h:commandButton class="btn btn-default" value="Efetuar Pedido" style="float:right;"/>
+                                   <h:commandButton class="btn btn-default" value="Efetuar Pedido" style="float:right;">
+                                       <f:ajax event="click" listener="#{menuController.buildOrder()}"></f:ajax>
+                                   </h:commandButton>
                                 </div>
                             </div>
                         </div>
