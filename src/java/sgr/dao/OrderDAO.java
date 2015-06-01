@@ -1,10 +1,9 @@
 /*
-    SGR ALPHA - DAO PACKAGE
-    File: ORDERDAO.JAVA | Last Major Update: 12.05.2015
-    Developer: Kevin Raian, Washington Reis
-    IDINALOG REBORN © 2015
-*/
-
+ SGR ALPHA - DAO PACKAGE
+ File: ORDERDAO.JAVA | Last Major Update: 12.05.2015
+ Developer: Kevin Raian, Washington Reis
+ IDINALOG REBORN © 2015
+ */
 package sgr.dao;
 
 import sgr.bean.OrderBean;
@@ -16,72 +15,61 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
-import sgr.bean.ClientBean;
-import sgr.bean.ItemBean;
 import sgr.sql.QueryBuilder;
 
 public class OrderDAO {
-    
-    // HTTP Session
-    private HttpSession session;
-    
-    public void newOrder(ClientBean client) throws SQLException, ExceptionDAO {
-        
-        int mesaAtual = (int)  getSession().getAttribute("currentTable");
-        long sessionAtual = (long) getSession().getAttribute("currentSessionCode");
-        
-        System.out.println("Mesa: " + mesaAtual);
-        System.out.println("Session: " + sessionAtual);
-        
-        // Inicia Services
-        FacesContext ctx = FacesContext.getCurrentInstance();
 
-        // Inicia HTTPSessiosetSessions(ession = (HttpSession) ctx.getExternalContext().getSe)ssion(false);
-        
+    public void newOrder(OrderBean order) throws SQLException, ExceptionDAO {
+
         ConnectionBuilder connection = new ConnectionBuilder();
         Connection conn = connection.getConnection();
-        
-        // Cria novo Pedido        
-        String sql = "INSERT INTO pedido(MESA_NUMERO,CONTA_CODIGO,CONTA_CLIENTE_CODIGO,CONTA_CLIENTE_CPF) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO pedido (Mesa_Numero, Conta_Codigo,Conta_Cliente_Codigo,"
+                + " Conta_Cliente_CPF, Status) VALUES (?,?,?,?,?)";
+
         PreparedStatement ps = conn.prepareStatement(sql);
         
-        ps.setInt(1, mesaAtual);
-        ps.setLong(2, sessionAtual);
-        ps.setInt(3, client.getCodigo());
-        ps.setLong(4, client.getCpf());
+        System.out.println("[ORDER DAO] Dados armazenados para novo pedido: Mesa '" + order.getMesa() + "', Código da Conta: '" 
+        + order.getCodigoConta() + "', Código do Cliente: '" + order.getCodigoCliente() + "', CPF: '" + order.getCodigoClienteCpf() + 
+                "', Status: '" + order.getPedidoStatus() + "'.");
+
+        ps.setInt(1, order.getMesa());
+        ps.setLong(2, order.getCodigoConta());
+        ps.setInt(3, order.getCodigoCliente());
+        ps.setLong(4, order.getCodigoClienteCpf());        
+        ps.setString(5, order.getPedidoStatus());
+
         ps.execute();
-        ps.close();              
-        
-    }
-    
-    public List<OrderBean> listOrders(QueryBuilder query) throws SQLException, ExceptionDAO {
-        
-        ConnectionBuilder connection = new ConnectionBuilder();
-        Connection conn = connection.getConnection();
-        List<OrderBean> listOrder = new ArrayList<OrderBean>();
-        
-        String sql = "SELECT p.Codigo, pi.Status FROM pedido p inner join pedido_itens pi on p.Codigo = pi.Pedido_Codigo" + query.buildQuery();
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        
-        while(rs.next()) {
-            OrderBean order = new OrderBean();
-            order.setCodigo(rs.getInt("p.Codigo"));
-            order.setItemStatus(rs.getString("pi.Status"));
-            order.setPedidoStatus(rs.getString("p.Status"));
-            
-            listOrder.add(order);
-        }
-        
-        rs.close();
         ps.close();
         conn.close();
         
+        System.out.println("[ORDER DAO] Pedido adicionado com sucesso ao código: " + order.getCodigoConta());
+    }
+
+    public List<OrderBean> listOrders(QueryBuilder query) throws SQLException, ExceptionDAO {
+
+        ConnectionBuilder connection = new ConnectionBuilder();
+        Connection conn = connection.getConnection();
+        List<OrderBean> listOrder = new ArrayList<OrderBean>();
+
+        String sql = "SELECT * from pedido" + query.buildQuery();
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            OrderBean order = new OrderBean();
+            order.setCodigo(rs.getInt("Codigo"));
+            order.setPedidoStatus(rs.getString("Status"));
+
+            listOrder.add(order);
+        }
+
+        rs.close();
+        ps.close();
+        conn.close();
+
         return listOrder;
-    
-    }    
+
+    }
     
     public List<OrderItemsBean> listItems (QueryBuilder query) throws SQLException, ExceptionDAO {
         
@@ -115,12 +103,5 @@ public class OrderDAO {
         
     }
 
-    public HttpSession getSession() {
-        return session;
-    }
 
-    public void setSession(HttpSession session) {
-        this.session = session;
-    }
-    
 }

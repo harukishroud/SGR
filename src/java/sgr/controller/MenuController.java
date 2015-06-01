@@ -18,6 +18,7 @@ import sgr.bean.ItemBean;
 import sgr.bean.OrderBean;
 import sgr.bean.OrderBuilderBean;
 import sgr.bean.OrderItemsBean;
+import sgr.bean.TableBean;
 import sgr.dao.ExceptionDAO;
 import sgr.service.ClientService;
 import sgr.service.ItemService;
@@ -30,12 +31,15 @@ import sgr.service.OrderService;
 public class MenuController {
 
     /* VARIAVEIS */
-    private String clientUsername = "";
+    private String currentUsername = "";
+    private int currentTable;
+    private long currentSessionCode;
     private String selectedItemType = "Todos";
     private String itemName = "";
     private String itemType = "";
     private float orderBuilderPrice = 0;
     boolean itemExists = false;
+    private int orderCode;
     
     // Beans
     private ItemBean itemBean = new ItemBean();
@@ -167,32 +171,39 @@ public class MenuController {
     
     // MÉTODO 05 - buildOrder()
     // Realiza o pedido oficial com base no pedido temporário.
-    public void buildOrder() throws ExceptionDAO, SQLException {
+    public void buildOrder() throws ExceptionDAO, SQLException {      
+        currentUsername = (String) session.getAttribute("currentUsername");
+        currentSessionCode = (Long) session.getAttribute("currentSessionCode");
+        currentTable = (int) session.getAttribute("currentTable");
         
-        System.out.println("NYAAAAAAAAAAAAAAAAAAAH~~~~");
-        
-        // Inicia HTTPSession
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        session = (HttpSession) ctx.getExternalContext().getSession(false);
-        
-        clientUsername = (String) session.getAttribute("currentUsername");
-        
-        // Coleta dados do Cliente
-        clientList = clientService.pullClientData(clientUsername);
+        clientList = clientService.pullClientData(currentUsername);
         clientBean = clientList.get(0);
         
-        // Configura Order Bean
-        orderService.newOrder(clientBean);
+        orderBean.setCodigoCliente(clientBean.getCodigo());
+        orderBean.setCodigoClienteCpf(clientBean.getCpf());
+        orderBean.setCodigoConta(currentSessionCode);
+        orderBean.setPedidoStatus("Aberto");
+        orderBean.setMesa(currentTable);
         
-        // Busca Pedido Aberto        
-        orderList = orderService.listOrders((long) session.getAttribute("currentSession"));
-        orderItemBean.setCodigo_pedido(orderList.get(0).getCodigo());
-        orderItemBean.setNome_item(orderBuilderItem.getNome());
-        orderItemBean.setQuantidade_item_pedido(orderBuilderItem.getQuantidade());
-        orderItemBean.setStatus_pedido("EM ANDAMENTO");
+        orderService.newOrder(orderBean);
         
-        orderItemService.newOrderItem(orderItemBean);               
+        orderList = orderService.searchOpenOrder(currentSessionCode);
+        orderBean.setCodigo(orderList.get(0).getCodigo());
         
+        orderItemBean.setCodigo_pedido(orderBean.getCodigo());
+        orderItemBean.setMesa(orderBean.getMesa());
+        
+        for (int i = 0; i < orderBuilderList.size(); i++) {
+            orderItemBean.setCodigo_item(orderBuilderList.get(i).getCodigo());
+            orderItemBean.setQuantidade_item_pedido(orderBuilderList.get(i).getQuantidade());
+            orderItemBean.setStatus_pedido("Solicitado");
+            
+            orderItemService.addOrderItem(orderItemBean);            
+        }
+        
+        clearOrderBuilder();
+        
+        System.out.println("[MENU CONTROLLER] Pedido realizado com sucesso!");
         
     }
 
@@ -318,12 +329,12 @@ public class MenuController {
     }
     
 
-    public String getClientUsername() {
-        return clientUsername;
+    public String getCurrentUsername() {
+        return currentUsername;
     }
 
-    public void setClientUsername(String clientUsername) {
-        this.clientUsername = clientUsername;
+    public void setCurrentUsername(String currentUsername) {
+        this.currentUsername = currentUsername;
     }
 
     public OrderService getOrderService() {
@@ -341,7 +352,6 @@ public class MenuController {
     public void setClientService(ClientService clientService) {
         this.clientService = clientService;
     }
-     // </editor-fold>
 
     public OrderBean getOrderBean() {
         return orderBean;
@@ -373,6 +383,33 @@ public class MenuController {
 
     public void setOrderItemService(OrderItemService orderItemService) {
         this.orderItemService = orderItemService;
+    }
+
+    // </editor-fold>
+
+    
+    public long getCurrentSessionCode() {
+        return currentSessionCode;
+    }
+
+    public void setCurrentSessionCode(long currentSessionCode) {
+        this.currentSessionCode = currentSessionCode;
+    }
+
+    public int getCurrentTable() {
+        return currentTable;
+    }
+
+    public void setCurrentTable(int currentTable) {
+        this.currentTable = currentTable;
+    }
+
+    public int getOrderCode() {
+        return orderCode;
+    }
+
+    public void setOrderCode(int orderCode) {
+        this.orderCode = orderCode;
     }
 
 }

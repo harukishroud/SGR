@@ -15,17 +15,17 @@ import sgr.dao.OrderItemDAO;
 
 public class OrderItemService {
  
-    public void newOrderItem(OrderItemsBean orderItem) {
+    public void addOrderItem(OrderItemsBean orderItem) {
         OrderItemDAO orderItemDAO = new OrderItemDAO();
         
         try {
-            System.out.println("PEDIDO ITEM ADICIONADO");
-            orderItemDAO.newOrder(orderItem);
+            System.out.println("[ORDERITEM SERVICE] Preparando para adicionar item ao pedido...");
+            orderItemDAO.addOrderItem(orderItem);
         } catch (SQLException ex) {
-            System.out.println("PEDIDO_ITEM ERRO MOTIVO: " + ex.getSQLState());
+            System.out.println("[ORDERITEM SERVICE] ERRO: Falha ao adicionar item ao pedido. LOG: " + ex.getSQLState());
             Logger.getLogger(OrderItemService.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ExceptionDAO ex) {
-            System.out.println("PEDIDO ITEM ADICIONADO MOTIVO: " + ex.getMessage());
+            System.out.println("[ORDERITEM SERVICE] ERRO: Falha ao adicionar item ao pedido. LOG: " + ex.getMessage());
             Logger.getLogger(OrderItemService.class.getName()).log(Level.SEVERE, null, ex);
         }
         

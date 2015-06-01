@@ -14,27 +14,19 @@ import sgr.bean.OrderItemsBean;
 import sgr.util.ConnectionBuilder;
 
 public class OrderItemDAO {
-
-    // HTTP Session
-    private HttpSession session;
-
-    public void newOrder(OrderItemsBean orderItem) throws SQLException, ExceptionDAO {
-
-        // Inicia Services
-        FacesContext ctx = FacesContext.getCurrentInstance();
-
-        // Inicia HTTPSession
-        session = (HttpSession) ctx.getExternalContext().getSession(false);
+        
+        public void addOrderItem(OrderItemsBean orderItem) throws SQLException, ExceptionDAO {
 
         ConnectionBuilder connection = new ConnectionBuilder();
         Connection conn = connection.getConnection();
-        String sql = "INSERT INTO pedido_itens(pedido_codigo,pedido_mesa_numero,itens_codigo,quantidade,status)"
-                + "values (?,?,?,?,?)";
+        
+        String sql = "INSERT INTO pedido_itens(Pedido_Codigo,Pedido_Mesa_Numero,Itens_Codigo,Quantidade,Status)"
+                + " VALUES (?,?,?,?,?)";
 
-        System.out.println(sql);
         PreparedStatement ps = conn.prepareStatement(sql);
+        
         ps.setInt(1, orderItem.getCodigo_pedido());
-        ps.setInt(2, (int) session.getAttribute("currentTable"));
+        ps.setInt(2, orderItem.getMesa());
         ps.setInt(3, orderItem.getCodigo_item());
         ps.setInt(4, orderItem.getQuantidade_item_pedido());
         ps.setString(5, orderItem.getStatus_pedido());
@@ -42,6 +34,10 @@ public class OrderItemDAO {
         ps.execute();
         ps.close();
         conn.close();
+        
+        System.out.println("[ORDERITEM DAO] Item código " + orderItem.getCodigo_item() + " adicionado ao pedido "
+        + orderItem.getCodigo_pedido() + ".");
+        
     }
 
 }

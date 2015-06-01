@@ -14,6 +14,7 @@ public class OrderItemsBean {
     private int codigo_item;
     private String nome_item;
     private int quantidade_item_pedido;
+    private int mesa;
 
     public int getCodigo_pedido() {
         return codigo_pedido;
@@ -53,6 +54,14 @@ public class OrderItemsBean {
 
     public void setCodigo_item(int codigo_item) {
         this.codigo_item = codigo_item;
+    }
+
+    public int getMesa() {
+        return mesa;
+    }
+
+    public void setMesa(int mesa) {
+        this.mesa = mesa;
     }
     
     
