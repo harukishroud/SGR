@@ -8,11 +8,10 @@ package sgr.util;
 
 import java.util.InputMismatchException;
 
-
 public class ValidarCpf {
  
   public static boolean isCPF(String CPF) {
-// considera-se erro CPF's formados por uma sequencia de numeros iguais
+// Considera-se erro CPF's formados por uma sequencia de numeros iguais
     if (CPF.equals("00000000000") || CPF.equals("11111111111") ||
         CPF.equals("22222222222") || CPF.equals("33333333333") ||
         CPF.equals("44444444444") || CPF.equals("55555555555") ||
@@ -24,7 +23,6 @@ public class ValidarCpf {
     char dig10, dig11;
     int sm, i, r, num, peso;
 
-// "try" - protege o codigo para eventuais erros de conversao de tipo (int)
     try {
 // Calculo do 1o. Digito Verificador
       sm = 0;
@@ -41,7 +39,7 @@ public class ValidarCpf {
       r = 11 - (sm % 11);
       if ((r == 10) || (r == 11))
          dig10 = '0';
-      else dig10 = (char)(r + 48); // converte no respectivo caractere numerico
+      else dig10 = (char)(r + 48); // Converte no respectivo caractere numerico
 
 // Calculo do 2o. Digito Verificador
       sm = 0;
@@ -71,6 +69,15 @@ public class ValidarCpf {
       CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
   }
   
-  
+    public static void main(String[]args) {
+      
+      if(ValidarCpf.isCPF("4515125512")) {
+          System.out.println("cpf valido");
+      }else{
+          System.out.println("cpf invalido");
+      }
+      
+  }
+
 }
 
