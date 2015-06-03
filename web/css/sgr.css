@@ -1,4 +1,19 @@
-
+@font-face {
+    font-family: roboto-thin;
+    src: url(../fonts/Roboto-Thin.ttf);
+}
+@font-face {
+    font-family: roboto-light;
+    src: url(../fonts/roboto-light.ttf);
+}
+@font-face {
+    font-family: roboto-regular;
+    src: url(../fonts/Roboto-Regular.ttf);
+}
+@font-face {
+    font-family: roboto-medium;
+    src: url(../fonts/Roboto-Medium.ttf);
+}
 
 vertical-center {
   min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
@@ -23,7 +38,6 @@ body {
   background-attachment: fixed;
   background-size: cover;
   background-color: white;
-  padding-top: 70px;
 }
 
 .formbg {
@@ -47,4 +61,19 @@ body {
     border-bottom: #D45744 solid 4px;
 }
 
+.sgr-panel-headertext {
+    font-size:20px;
+    font-weight: bold;
+}
 
+.sgr-panel-icon {
+    color:#D45744;
+    margin-right:5px;
+    margin-top:5px;
+}
+
+
+h3 { color: #ff4411; font-family: 'roboto-light', sans-serif; font-size: 34px; }
+h2 { color: #D45744; font-family: 'roboto-light', sans-serif; font-size: 24px; }
+
+p { font-family: 'roboto-light'; }
