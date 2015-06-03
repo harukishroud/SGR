@@ -137,7 +137,7 @@
                         <div class="panel-body">
                             <div class="row clearfix">
                                 <div class="table-responsive">
-                                    <p:dataTable tableStyleClass="table table-striped" emptyMessage="Nenhum pedido realizado." var="item" value="#{clientController.orderItemList}">
+                                    <p:dataTable tableStyleClass="table table-striped" emptyMessage="Nenhum pedido realizado." var="item" value="#{mainController.orderItemList}">
 
                                         <p:column headerText="Pedido">
                                             <h:outputText style="color:#D45744;" value="#{item.codigo_pedido}" />

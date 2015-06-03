@@ -1,6 +1,6 @@
 <!--
-    SGR BETA
-    File: MAINCLIENT.JSP | Last Major Update: 20.04.2015
+    SGR ALPHA
+    File: MENU.XHTML | Last Major Update: 02.06.2015
     Developer: Kevin Raian
     IDINALOG REBORN © 2015
 -->
@@ -11,142 +11,136 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui" lang="pt_br"
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:b="http://bootsfaces.net/ui" xmlns:o="http://openfaces.org/">
 
-  <h:head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
-    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-    
-    <title>SGR | Menu</title>
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 
-    <!-- Carrega Bootstrap e CSS Extra -->
-    <link href="css/bootstrap.css" rel="stylesheet"></link>
-    <link href="css/sgr.css" rel="stylesheet"></link>
-    <link href="css/mainclient.css" rel="stylesheet"></link>
-    <link href="css/font-awesome.min.css" rel="stylesheet"></link>
-    <link href="css/menu.css" rel="stylesheet"></link>    
-    <!-- Carrega JQuery -->
-    <script src="js/jquery-2.1.3.js"></script>
-    <!-- Carrega Plugins Avulsos -->		
-    <script src="js/bootstrap.js"></script>
-    
+        <!-- Título da Página -->
+        <title>SGR | Menu</title>
+
+        <!-- Carrega Bootstrap e CSS Extra -->
+        <link href="css/bootstrap.css" rel="stylesheet"></link>
+        <link href="css/sgr.css" rel="stylesheet"></link>
+        <link href="css/mainclient.css" rel="stylesheet"></link>
+        <link href="css/font-awesome.min.css" rel="stylesheet"></link>
+        <link href="css/menu.css" rel="stylesheet"></link>    
+        <!-- Carrega JQuery -->
+        <script src="js/jquery-2.1.3.js"></script>
+        <!-- Carrega Plugins Avulsos -->		
+        <script src="js/bootstrap.js"></script>
     </h:head>
 
-                <h:body>
-                    
-                <!-- [I] Painel Principal -->
-                <nav class="navbar navbar-default navbar-fixed-top">
-                <div class="container-fluid">
+    <h:body>
+        
+                
+        <!-- > Header -->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
                 <div class="navbar-header">
                     
-                <!-- [I] Logo -->                
-                <a class="navbar-brand" href="#">
-                <img alt="Brand" src="img/sgr_logo_sd.png" style="max-height: 100px; 
-                     margin-top:-20px; background-color:#F8F8F8;" class="img-rounded"></img>
-                </a>
-                
-                <!-- [F] Exibição do Usuário -->
-                <p class="navbar-text" >Olá, <b>#{clientController.clientBean.nome}</b>!</p>     
-                <p class="navbar-text">Mesa <span class="badge">#{clientController.tableBean.numero}</span></p>
-                </div>
+                    <!-- # Logo -->                
+                    <a class="navbar-brand" href="#">
+                        <img alt="Brand" src="img/sgr_logo_sd.png" style="max-height: 100px; 
+                        margin-top:-20px; background-color:#F8F8F8;" class="img-rounded"></img>
+                    </a>
                     
-                <!-- [F] Informações -->
-                <p class="navbar-text" style="margin-left:100px;"><span class="glyphicon glyphicon-time" 
-                   aria-hidden="true" style="color:#D45744; margin-right:5px;"></span><b><span id="basicclock"></span></b></p>               
-                
-                    <!-- [S] Script Hora -->
-                    
-                    <script type="text/javascript">
-                    //<![CDATA[
-                    function clock() 
-                    {
-                       var digital = new Date();
-                       var hours = digital.getHours();
-                       var minutes = digital.getMinutes();
-                       var seconds = digital.getSeconds();
-                       if (minutes <= 9) minutes = "0" + minutes;
-                       if (seconds <= 9) seconds = "0" + seconds;
-                       dispTime = hours + ":" + minutes + ":" + seconds;
-                       var basicclock = document.getElementById('basicclock');
-                       basicclock.innerHTML = dispTime;
-                       setTimeout("clock()", 1000);
-                    }              
-                    clock();
-                    //]]>
-                    </script>                    
-                
-                <p class="navbar-text" style="margin-left:20px;"><span class="glyphicon glyphicon-calendar"
-                   aria-hidden="true" style="color:#D45744; margin-right:5px;"></span><b><span id="basicdate"></span></b></p>
-                
-                    <!-- [S] Script Data -->
-                    
+                    <!-- # Exibição do Usuário -->
+                    <p class="navbar-text" >Olá, <b>#{clientController.clientBean.nome}</b>!</p>     
+                    <p class="navbar-text">Mesa <span class="badge">#{clientController.tableBean.numero}</span></p>
+
+                    <!-- # Informações -->
+                    <p class="navbar-text" style="margin-left:100px;"><span class="glyphicon glyphicon-time" 
+                    aria-hidden="true" style="color:#D45744; margin-right:5px;"></span><b><span id="basicclock"></span></b></p>               
+
+                    <!-- # Script Hora -->
                     <script type="text/javascript">
                         //<![CDATA[
-                       var now = new Date();
-                       var days = new Array('Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado');
-                       var months = new Array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro');
-                       var date = ((now.getDate() < 10) ? "0" : "") + now.getDate();
-                       var year = (now.getYear() < 1000) ? now.getYear() + 1900 : now.getYear();
-                       today = days[now.getDay()] + ", " + date + " de "+ months[now.getMonth()] + ", " + year;
-                       var basicdate = document.getElementById('basicdate');
-                       basicdate.innerHTML = today;
-                       //]]>
+                        function clock()
+                        {
+                            var digital = new Date();
+                            var hours = digital.getHours();
+                            var minutes = digital.getMinutes();
+                            var seconds = digital.getSeconds();
+                            if (minutes <= 9)
+                                minutes = "0" + minutes;
+                            if (seconds <= 9)
+                                seconds = "0" + seconds;
+                            dispTime = hours + ":" + minutes + ":" + seconds;
+                            var basicclock = document.getElementById('basicclock');
+                            basicclock.innerHTML = dispTime;
+                            setTimeout("clock()", 1000);
+                        }
+                        clock();
+                        //]]>
+                    </script>                    
+
+                    <p class="navbar-text" style="margin-left:20px;"><span class="glyphicon glyphicon-calendar"
+                    aria-hidden="true" style="color:#D45744; margin-right:5px;"></span><b><span id="basicdate"></span></b></p>
+
+                    <!-- # Script Data -->
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        var now = new Date();
+                        var days = new Array('Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado');
+                        var months = new Array('Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro');
+                        var date = ((now.getDate() < 10) ? "0" : "") + now.getDate();
+                        var year = (now.getYear() < 1000) ? now.getYear() + 1900 : now.getYear();
+                        today = days[now.getDay()] + ", " + date + " de " + months[now.getMonth()] + ", " + year;
+                        var basicdate = document.getElementById('basicdate');
+                        basicdate.innerHTML = today;
+                        //]]>
                     </script>
-                    
-                <ul class="nav navbar-nav navbar-right" style="margin-right:20px;">
-                 
-                <!-- [I] Configurações -->
-                <li><div class="dropdown" style="margin-top:8px; margin-right:5px;">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                Configurações
-                <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Alterar Dados Cadastrais</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Alterar Senha</a></li>
-                </ul>
-                </div></li>
-                    
-                
-                <!-- [I] Logout Button -->
-                <li><button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#myModal">Sair</button></li>
-                </ul>       
-     
-                </div>                 
-                </nav>
-                
-                <!-- [I] Fim do Painel Principal -->
-                
-                <!-- [I] Display Principal -->
-                
-                <div class="container">
-                    <div class="row clearfix">
-                        <div class="col-md-6">                        
-                            <div class="panel panel-default">
-                                
-                                <!-- Cabeçalho Painel -->                                
-                                <div class="panel-heading">
-                                    <h3 class="panel-title"><i class="fa fa-cutlery" style="color:#D45744;"></i> Cardápio</h3>
-                                </div>
-                                                               
-                                <!-- Controles do Cardápio -->    
-                                <div class="panel-body">
-                                    <h:form>
-                                        <span style="margin-right:10px;font-size:14px;z-index: 1000">Selecione o Tipo de Prato:</span>                              
-                                        <h:selectOneMenu style="padding:3px;width:140px;height:35px;" value="#{menuController.selectedItemType}">
-                                            <f:selectItem itemLabel="Todos" itemValue="Todos" />
-                                            <f:selectItems var="item"  itemLabel="#{item.tipo}" itemValue="#{item.tipo}"  value="#{menuController.itemTypes}"   />
-                                        <f:ajax render="menuItems" listener="#{menuController.showSelectedTypeItems()}" event="click"/>
-                                        </h:selectOneMenu>
-                                        <h:commandButton class="btn btn-default" value="Voltar à Tela Principal" style="float:right;" actionListener="#{clientController.goTo('/mainclient.xhtml')}"/>
-                                    </h:form>
 
-                                    <!-- Espaço em Branco -->
-                                    <div style="padding-bottom: 20px;">
-                                    </div>
+                    <ul class="nav navbar-nav navbar-right" style="margin-right:20px;">
 
-                                    <!-- Tabela de Items -->                            
-                                    <div class="row" style="max-height:500px;overflow-y: scroll;">
-                                    <div class="table-responsive">                              
-                                           
+                        <!-- # Configurações -->
+                        <li>
+                        <h:commandButton class="btn btn-default" value="Alterar Dados" actionListener="#{clientController.goTo('/clientprofile.xhtml')}"/>
+
+                        <!-- # Logout Button -->
+                        <button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#logoutModal">Sair</button>
+                        </li>
+                        
+                    </ul> 
+                    
+                </div>
+            </div>              
+        </nav>
+        <!-- < Header -->
+
+        <!-- > Body -->
+        <div class="container">
+            <div class="row clearfix">
+                <!-- > Painel Esquerdo -->
+                
+                <div class="col-md-6">                        
+                    <div class="panel panel-default">
+
+                        <!-- @ Header Painel -->                                
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-cutlery" style="color:#D45744;"></i> Cardápio</h3>
+                        </div>
+
+                        <!-- @ Controles do Cardápio -->    
+                        <div class="panel-body">                            
+                            
+                                <span style="margin-right:10px;font-size:14px;z-index: 1000">Selecione o Menu:</span>                              
+                                <h:selectOneMenu style="padding:3px;width:140px;height:35px;" value="#{menuController.selectedItemType}">
+                                    <f:selectItem itemLabel="Todos" itemValue="Todos" />
+                                    <f:selectItems var="item"  itemLabel="#{item.tipo}" itemValue="#{item.tipo}"  value="#{menuController.itemTypes}"   />
+                                    <f:ajax render="menuItems" listener="#{menuController.showSelectedTypeItems()}" event="click"/>
+                                </h:selectOneMenu>                                
+                                <h:commandButton class="btn btn-default" value="Voltar à Tela Principal" style="float:right;" actionListener="#{clientController.goTo('/mainclient.xhtml')}"/>
+                          
+
+                            <!-- % Gap -->
+                            <div style="padding-bottom: 20px;">
+                            </div>
+
+                            <!-- @ Tabela de Items -->                            
+                            <div class="row" style="max-height:500px;overflow-y: scroll;">
+                                <div class="table-responsive">                              
+
                                     <p:dataTable id="menuItems" tableStyleClass="table table-striped" emptyMessage="Nenhum pedido realizado." var="item" value="#{menuController.itemList}">
                                         <p:column headerText="">
                                             <h:outputText style="color:#D45744;" value="#{item.nome}" id="itemName"  />                                    
@@ -158,119 +152,143 @@
                                             <h:outputText value="R$ #{item.preco}" id="itemPrice" />
                                         </p:column>                                        
                                         <p:column style="width:50px;">
-                                            <h:form>
-                                                <h:commandButton value="+" class="btn btn-default btn-sm" > 
-                                                    <f:ajax event="click" render="@all currentOrder" listener="#{menuController.addOrderItem(item)}"></f:ajax>
-                                                </h:commandButton>
+                                            <h:form id="plus">
+                                                <p:commandButton update="@all"  value="+" class="btn btn-default btn-sm" actionListener="#{menuController.addOrderItem(item)}"
+                                                  style="width: 32px;height:32px;" ajax="true"/> 
                                             </h:form>
                                         </p:column>
                                     </p:dataTable>  
-                                        
 
-                                    </div> 
-                                    </div>  
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-6">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title"><i class="fa fa-check-square" style="color:#D45744;"></i> Items do Pedido</h3>
-                                </div>
-                                
-                                <div class="panel-body">
-                                  
-                                    <h:form>
-                                        <span style="margin-right:10px;font-size:14px;">Total de Items</span><span class="badge">#{menuController.orderBuilderList.size()}</span>
-                                        <h:commandButton class="btn btn-default" value="Limpar Pedido" style="float:right;">
-                                            <f:ajax event="click" render="@all currentOrder" listener="#{menuController.clearOrderBuilder()}"></f:ajax>
-                                        </h:commandButton>
-                                    </h:form>
-                                        
-                                    <div style="padding-bottom: 30px;">
-                                    </div>
-
-                                    <h:form id="temporaryOrder">
-                                    <div class="row" style="max-height:500px;overflow-y: scroll;">
-                                        
-                                        <p:dataTable id="currentOrder" tableStyleClass="table table-striped" emptyMessage="Nenhum pedido realizado." var="currentOrderItem" value="#{menuController.orderBuilderList}">
-                                            <p:column headerText="">
-                                                <h:outputText style="color:#D45744;" value="#{currentOrderItem.nome}" id="itemName"  />                                    
-                                            </p:column>                                
-                                            <p:column headerText="Qnt." style="align:center;text-align:center;width:50px;">
-                                                <h:outputText value="#{currentOrderItem.quantidade}" id="itemQuantity"  />
-                                            </p:column>                                            
-                                            <p:column style="width:50px;"> 
-                                            <h:form>
-                                                <h:commandButton class="btn btn-default btn-sm" value="-">
-                                                    <f:ajax event="click" render="@all currentOrder" listener="#{menuController.remOrderItem(currentOrderItem)}"></f:ajax>
-                                                </h:commandButton>
-                                            </h:form>
-                                            </p:column>                                               
-                                        </p:dataTable>
-                                    </div> 
-                                    </h:form>
-                                    
-                                </div>
-                                <div class="panel-footer" style="height: 55px;">
-                                    <span class="glyphicon glyphicon-usd" aria-hidden="true" style="color:#D45744; margin-right:5px;padding-top: 5px;"></span><b>Total deste Pedido:</b><span class="ft-values">R$ #{menuController.orderBuilderPrice}</span>
-                                   <h:commandButton class="btn btn-default" value="Efetuar Pedido" style="float:right;">
-                                       <f:ajax event="click" listener="#{menuController.buildOrder()}"></f:ajax>
-                                   </h:commandButton>
-                                </div>
-                            </div>
+                                </div> 
+                            </div>  
                         </div>
                     </div>
-                </div>             
+                </div>
+               
+                <!-- < Painel Esquerdo -->
+
+                <!-- > Painel Direito -->
                 
-                <!-- [I] Footer -->
-                <nav class="navbar navbar-default navbar-fixed-bottom">
-                <div class="container">
+                <div class="col-md-6" id="currentOrder">
+                    
+                    <!-- @ Header do Painel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-check-square" style="color:#D45744;"></i> Items do Pedido</h3>
+                        </div>
+
+                        <!-- @ Controles dos Items Pedidos -->        
+                        
+                        <div class="panel-body" id="order">
+                           
+                                <span style="margin-right:10px;font-size:14px;">Total de Items</span><span class="badge">#{menuController.orderBuilderList.size()}</span>
+                                
+                                <p:commandButton value="Limpar Pedido" class="btn btn-default btn-sm" actionListener="#{menuController.clearOrderBuilder()}"
+                                                 style="float:right;" ajax="true" update="@all"/>                                 
+                              
+
+                            <!-- % Gap -->
+                            <div style="padding-bottom: 30px;">
+                            </div>
+                            
+                            <!-- @ Items Pedidos -->
+                            
+                                <div class="row" style="max-height:500px;overflow-y: scroll;">
+                               
+                                    <p:dataTable tableStyleClass="table table-striped" emptyMessage="Nenhum pedido realizado." var="currentOrderItem" value="#{menuController.orderBuilderList}">
+                                        <p:column headerText="">
+                                            <h:outputText style="color:#D45744;" value="#{currentOrderItem.nome}" id="itemName"  />                                    
+                                        </p:column>                                
+                                        <p:column headerText="Qnt." style="align:center;text-align:center;width:50px;">
+                                            <h:outputText value="#{currentOrderItem.quantidade}" id="itemQuantity"  />
+                                        </p:column>                                            
+                                        <p:column style="width:50px;"> 
+                                            <h:form id="minus">
+                                                <p:commandButton class="btn btn-default btn-sm" value="-" actionListener="#{menuController.remOrderItem(currentOrderItem)}"
+                                                                 style="width: 32px;height:32px;"  update="@all" ajax="true"/>                                                
+                                            </h:form>
+                                        </p:column>                                               
+                                    </p:dataTable>
+                                   
+                                </div>
+                            
+                        </div>
+                        
+                        
+                        
+                        <!-- @ Footer do Painel -->
+                        <div class="panel-footer" style="height: 55px;" id="orderFooter">
+                            <span class="glyphicon glyphicon-usd" aria-hidden="true" style="color:#D45744; margin-right:5px;padding-top: 5px;"></span><b>Total deste Pedido:</b><span class="ft-values">R$ #{menuController.orderBuilderPrice}</span>
+                            <button class="btn btn-default" data-toggle="modal" data-target="#orderModal" style="float:right;">Efetuar Pedido</button>
+                        </div>
+                    </div>
+                </div>
                 
-                <!-- [F] Informações de Conta e Pedidos -->
+                <!-- < Painel Direito -->
+                
+            </div>
+        </div>
+        <!-- < Body -->
+        
+
+        <!-- > Footer -->
+        <nav class="navbar navbar-default navbar-fixed-bottom">
+            <div class="container">
+                <!-- # Informações de Conta e Pedidos -->
                 <ul class="nav navbar-nav">
                     <li><p class="navbar-text" ><span class="glyphicon glyphicon-list" aria-hidden="true" style="color:#D45744; margin-right:5px;"></span><b>Total de Pedidos:</b><span class="ft-values"> 15</span></p></li>
                     <li><p class="navbar-text" ><span class="glyphicon glyphicon-usd" aria-hidden="true" style="color:#D45744; margin-right:5px;"></span><b>Total da Conta:</b><span class="ft-values"> R$ 00,00</span></p></li>
                 </ul>
-                
-                <!-- [I] Funções de Conta -->
+
+                <!-- # Funções de Conta -->
                 <ul class="nav navbar-nav navbar-right">
                     <li><button type="button" class="btn btn-danger" style="margin-top:7px;">Encerrar Conta</button></li>
                 </ul>
-                
-                </div>
-                </nav>
-                
-                <!-- [M] Modal -->
-                
-                <!-- Modal -->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Sair</h4>
-                      </div>
-                      <div class="modal-body">
-                          Lembre-se de que você <strong>não poderá encerrar</strong> a seção após <strong>realizar um ou mais pedidos</strong>.
-                      </div>
-                      <div class="modal-footer">
-                        
-                        <h:form><button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button><h:commandButton class="btn btn-primary" value="Sair" actionListener="#{clientController.doLogout()}"/></h:form>
-                        
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                
+            </div>
+        </nav>
+        <!-- < Footer -->
+        
+        <!-- > Modals -->
 
-                <!-- [S] Carrega JQuery -->
-		<script src="js/jquery-2.1.3.js"></script>
-		<!-- [S] Carrega Plugins Avulsos -->		
-		<script src="js/bootstrap.js"></script>
-		
-		</h:body>
-		
+        <!-- # Modal LOGOUT -->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-exclamation-triangle sgrc"></i> Sair</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4>#{clientController.clientBean.nome_usuario}, tem certeza de que deseja sair?</h4>
+                        <br></br>
+                        <div class="alert alert-danger" role="alert"><b>Atenção!</b> Você não poderá sair após realizar um ou mais pedidos.</div>
+                    </div>
+                    <div class="modal-footer">
+                        <h:form><button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button><h:commandButton class="btn btn-primary" value="Sair" actionListener="#{clientController.doLogout()}"/></h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- # Modal PEDIDO -->
+        <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-check-square-o sgrc"></i> Efetuar Pedido</h4>
+                    </div>
+                    <div class="modal-body">
+                        Seu pedido de <span class="badge">#{menuController.orderBuilderList.size()}</span> items no total de <b>R$ #{menuController.orderBuilderPrice}</b> será confirmado. Deseja continuar?
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <h:form><button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button><h:commandButton class="btn btn-success" value="Confirmar" actionListener="#{menuController.buildOrder()}"/></h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- < Modals -->
+    </h:body>
 </html>

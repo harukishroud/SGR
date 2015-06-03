@@ -82,18 +82,21 @@ public class OrderDAO {
                 + "pi.Pedido_Codigo inner join item it on pi.Itens_Codigo = "
                 + "it.Codigo" + query.buildQuery();
         
+        System.out.println("[ORDER DAO] Buscando items pendentes...");
+        
         PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         
         while(rs.next()) {
             OrderItemsBean orderItem = new OrderItemsBean();
             orderItem.setCodigo_pedido(rs.getInt("p.Codigo"));
-            orderItem.setStatus_pedido(rs.getString("it.Status"));
+            orderItem.setStatus_pedido(rs.getString("pi.Status"));
             orderItem.setQuantidade_item_pedido(rs.getInt("pi.Quantidade"));
             orderItem.setNome_item(rs.getString("it.Nome"));
-              }
-
-   
+            
+            System.out.println("[ORDER DAO] Item pendente encontrado: Código '" + orderItem.getCodigo_item() + 
+                    "', Quantidade: '" + orderItem.getQuantidade_item_pedido() + "'.");
+            }
         
         rs.close();
         ps.close();

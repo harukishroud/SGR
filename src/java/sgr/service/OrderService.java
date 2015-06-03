@@ -67,7 +67,7 @@ public class OrderService {
         List<OrderItemsBean> orderItemList = new ArrayList<OrderItemsBean>();
         QueryBuilder query = new QueryBuilder();
         
-         query.addQuery(QueryOperation.empty,"p.conta_codigo", QueryGender.equal, String.valueOf(sessionCode), QueryType.number);
+         query.addQuery(QueryOperation.empty,"p.Conta_Codigo", QueryGender.equal, String.valueOf(sessionCode), QueryType.number);
          // query.addQuery(QueryOperation.and,"pedido.conta_cliente_codigo", QueryGender.equal, String.valueOf(clientCode), QueryType.number);
          
         try {

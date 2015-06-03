@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import sgr.bean.ClientBean;
@@ -26,6 +27,7 @@ import sgr.service.OrderItemService;
 import sgr.service.OrderService;
 
 @SessionScoped
+@ViewScoped
 @ManagedBean(name = "menuController")
 
 public class MenuController {
@@ -92,9 +94,11 @@ public class MenuController {
     // MÉTODO 02 - clearOrderBuilder()
     // Limpa pedido temporário.
     public void clearOrderBuilder() {
-        System.out.println("[MENU CONTROLLER][02] Pedido temporário reiniciado." );
+        
+        System.out.println("[MENU CONTROLLER] Pedido temporário reiniciado.");
         orderBuilderList.clear();
-        orderBuilderPrice = 0;        
+        orderBuilderPrice = 0;
+            
     }
 
     // MÉTODO 03 - addOrderItem()
@@ -140,7 +144,6 @@ public class MenuController {
             System.out.println("[MENU CONTROLLER][03][02] Item '" + orderBuilderItem.getNome() + "' adicionado ao pedido temporário atual.");
             System.out.println("[MENU CONTROLLER][03][02] Codigo do item: '" + orderBuilderItem.getCodigo() + "'.");
 
-
         }
     }
     
@@ -156,7 +159,7 @@ public class MenuController {
                 
                 if (orderBuilderList.get(i).getQuantidade() == 1) {
                     orderBuilderList.remove(i);
-                    System.out.println("[MENU CONTROLLER][04][01.1] Item '" + orderBuilderItem.getNome() + "' removido do pedido temporário atual.");
+                    System.out.println("[MENU CONTROLLER][04][01.1] Item '" + orderBuilderItem.getNome() + "' removido do pedido temporário atual.");                    
                     break;
                 } else {
                     orderBuilderList.get(i).setQuantidade(orderBuilderList.get(i).getQuantidade() - 1);
@@ -383,10 +386,7 @@ public class MenuController {
 
     public void setOrderItemService(OrderItemService orderItemService) {
         this.orderItemService = orderItemService;
-    }
-
-    // </editor-fold>
-
+    }   
     
     public long getCurrentSessionCode() {
         return currentSessionCode;
@@ -412,4 +412,6 @@ public class MenuController {
         this.orderCode = orderCode;
     }
 
+     // </editor-fold>
+    
 }
