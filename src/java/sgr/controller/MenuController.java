@@ -96,7 +96,7 @@ public class MenuController {
     public void clearOrderBuilder() {
         
         System.out.println("[MENU CONTROLLER] Pedido temporário reiniciado.");
-        orderBuilderList.clear();
+        orderBuilderList.removeAll(orderBuilderList);
         orderBuilderPrice = 0;
             
     }
