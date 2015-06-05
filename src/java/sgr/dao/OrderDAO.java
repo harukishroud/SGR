@@ -35,7 +35,7 @@ public class OrderDAO {
         ps.setInt(1, order.getMesa());
         ps.setLong(2, order.getCodigoConta());
         ps.setInt(3, order.getCodigoCliente());
-        ps.setLong(4, order.getCodigoClienteCpf());        
+        ps.setString(4, order.getCodigoClienteCpf());        
         ps.setString(5, order.getPedidoStatus());
 
         ps.execute();
@@ -94,8 +94,10 @@ public class OrderDAO {
             orderItem.setQuantidade_item_pedido(rs.getInt("pi.Quantidade"));
             orderItem.setNome_item(rs.getString("it.Nome"));
             
-            System.out.println("[ORDER DAO] Item pendente encontrado: Código '" + orderItem.getCodigo_item() + 
+            System.out.println("[ORDER DAO] Item pendente encontrado: Código '" + orderItem.getCodigo_pedido()+ 
                     "', Quantidade: '" + orderItem.getQuantidade_item_pedido() + "'.");
+            
+            itemList.add(orderItem);
             }
         
         rs.close();

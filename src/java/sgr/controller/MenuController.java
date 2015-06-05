@@ -159,12 +159,16 @@ public class MenuController {
                 
                 if (orderBuilderList.get(i).getQuantidade() == 1) {
                     orderBuilderList.remove(i);
+                    // Atualiza preço total do pedido temporário
+                    orderBuilderPrice = orderBuilderPrice - orderBuilderItem.getPreco();
                     System.out.println("[MENU CONTROLLER][04][01.1] Item '" + orderBuilderItem.getNome() + "' removido do pedido temporário atual.");                    
                     break;
                 } else {
                     orderBuilderList.get(i).setQuantidade(orderBuilderList.get(i).getQuantidade() - 1);
                     System.out.println("[MENU CONTROLLER][04][01.2] Item '" + orderBuilderItem.getNome() + "' decrementado para '"
                             + orderBuilderList.get(i).getQuantidade() + "'." );
+                    // Atualiza preço total do pedido temporário
+                    orderBuilderPrice = orderBuilderPrice - orderBuilderItem.getPreco();
                     break;
                 }
                 

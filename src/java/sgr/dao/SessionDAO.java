@@ -35,7 +35,7 @@ public class SessionDAO {
         
         ps.setInt(1, session.getStatus());
         ps.setInt(2, session.getC_codigo());
-        ps.setLong(3, session.getC_cpf());
+        ps.setString(3, session.getC_cpf());
         ps.execute();
         ps.close();
         conn.close(); 
@@ -63,7 +63,7 @@ public class SessionDAO {
             sessionBean.setCodigo(rs.getLong("codigo"));
             sessionBean.setStatus(rs.getInt("status"));
             sessionBean.setC_codigo(rs.getInt("cliente_codigo"));
-            sessionBean.setC_cpf(rs.getLong("cliente_cpf"));
+            sessionBean.setC_cpf(rs.getString("cliente_cpf"));
             
             System.out.println("[SESSION DAO] Data fetched from SQL result: Codigo '" + sessionBean.getCodigo() + "', Status '"
             + sessionBean.getStatus() + "', Código Cliente '" + sessionBean.getC_codigo() + "', CPF Cliente '" + sessionBean.getC_cpf() + "'.");
@@ -120,7 +120,7 @@ public class SessionDAO {
             sessionBean.setCodigo(rs.getLong("codigo"));
             sessionBean.setStatus(rs.getInt("status"));
             sessionBean.setC_codigo(rs.getInt("cliente_codigo"));
-            sessionBean.setC_cpf(rs.getLong("cliente_cpf"));
+            sessionBean.setC_cpf(rs.getString("cliente_cpf"));
             
             System.out.println("[SESSION DAO][04] Dados adquiridos do SQL executado: Codigo '" + sessionBean.getCodigo() + "', Status '"
             + sessionBean.getStatus() + "', Código Cliente '" + sessionBean.getC_codigo() + "', CPF Cliente '" + sessionBean.getC_cpf() + "'.");

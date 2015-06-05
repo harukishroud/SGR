@@ -14,7 +14,7 @@ public class OrderBean {
     private int mesa;
     private Long codigoConta;
     private int codigoCliente;
-    private Long codigoClienteCpf;
+    private String codigoClienteCpf;
     private String itemStatus;
         
 
@@ -67,11 +67,11 @@ public class OrderBean {
         this.codigoCliente = codigoCliente;
     }
 
-    public Long getCodigoClienteCpf() {
+    public String getCodigoClienteCpf() {
         return codigoClienteCpf;
     }
 
-    public void setCodigoClienteCpf(Long codigoClienteCpf) {
+    public void setCodigoClienteCpf(String codigoClienteCpf) {
         this.codigoClienteCpf = codigoClienteCpf;
     }
 

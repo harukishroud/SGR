@@ -57,6 +57,10 @@ body {
     color:#D45744;
 }
 
+.sgrd {
+    color:#565656;
+}
+
 .sgr-panel-border {
     border-bottom: #D45744 solid 4px;
 }
@@ -72,7 +76,13 @@ body {
     margin-top:5px;
 }
 
+.sgr-panel-icond {
+    color:black;
+    margin-right:5px;
+    margin-top:5px;
+}
 
+h5 { color: black; font-family: 'roboto-light', sans-serif; font-size: 20px; }
 h3 { color: #ff4411; font-family: 'roboto-light', sans-serif; font-size: 34px; }
 h2 { color: #D45744; font-family: 'roboto-light', sans-serif; font-size: 24px; }
 

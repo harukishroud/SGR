@@ -30,14 +30,14 @@
     </h:head>
 
     <h:body>
-        <h:form>
+        
             <div class="vertical-center">
                 <div class="container">
                     <div class="panel panel-default">
                         <div class="panel-body">                            
                             <div class="row ">
-                                
-                               
+
+
                                 <!-- @ Logo -->
                                 <div class="col-sm-4">
                                     <img src="img/sgr_logo_sd.png" class="img-responsive"></img>	
@@ -46,7 +46,7 @@
                                 <!-- @ Formulário de Login -->
                                 <div class="col-sm-7">
                                     <h3>Login</h3>
-                                    
+                                    <h:form >
                                     <!-- @ Inputs -->
                                     <div class="form-group">
                                         <div class="input-group">
@@ -54,23 +54,22 @@
                                             <h:inputText  class="form-control" value="#{clientController.clientUsername}"/>                                            
                                         </div>
                                     </div>
-                                    
+
                                     <div class="form-group">
                                         <div class="input-group">
                                             <span class="input-group-addon" id="basic-addon1"><i class="fa fa-unlock-alt"></i></span>
                                             <h:inputSecret  class="form-control" value="#{clientController.clientPassword}"/>
                                         </div>
                                     </div>
-                                    
+
                                     <!-- @ Buttons -->
                                     <div class="btn-group" role="group" aria-label="...">
                                         <h:commandButton class="btn btn-default" value="Entrar" actionListener="#{clientController.doLogin}"  />
                                         <button type="button" class="btn btn-default">Entrar como Temporário</button>
-
                                         <div class="btn-group" role="group">
                                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                                 Recuperar Senha
-                                            <span class="caret"></span>
+                                                <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu" role="menu">
                                                 <li><a href="#">Enviar por E-mail</a></li>
@@ -80,13 +79,36 @@
                                             </ul>
                                         </div>
                                     </div>
+                                    
 
-                                    <button class="btn btn-default"><i class="fa fa-user-plus"></i> Faça seu Cadastro</button>
-
+                                    <button class="btn btn-default" type="button" data-toggle="modal" data-target="#signupModal"><i class="fa fa-user-plus"></i> Faça seu Cadastro</button>
+                                    </h:form>
                                     <p style="margin-top: 10px;">
                                         <span class="sgrc"><b>Novo no SGR?!</b></span> Cadastre-se e descubra as vantagens de ter sua própria conta conosco!
                                         Caso preferir utilize-se nosso sistema com uma conta temporária acima.
                                     </p>
+                                    
+                                    <!-- # Modal SIGNUP -->
+                                    <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-exclamation-triangle sgrc"></i> Atenção</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h4>Olá cliente!</h4>
+                                                    <p>Agradecemos a preferência e disposição de fazer e ter seu próprio cadastro! Pedimos para que por favor realize o mesmo com informações válidas
+                                                        para que possamos melhor atender-lo. Gostariamos de informar que contas cadastradas com dados inválidos, falsos ou ofensivos serão deletadas. Estamos
+                                                        contando com você! Aproveite nossos recursos!</p>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <h:form><button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button><h:commandButton class="btn btn-default" value="Continuar para o Cadastro" actionListener="#{clientController.goTo('/signup.xhtml')}"/></h:form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>   
 
                                     <!-- # Mensagens de Erro -->
                                     <h:messages styleClass="alert alert-warning"/> 
@@ -96,9 +118,10 @@
                     </div>
                 </div>
             </div>
-        </h:form>
-        
+
+                      
+
     </h:body>
-    
+
 </html>
 

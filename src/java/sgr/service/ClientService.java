@@ -98,4 +98,20 @@ public class ClientService {
         }
     }
     
+    public void newClient(ClientBean client) {
+        ClientDAO clientDAO = new ClientDAO();
+        
+        try {
+            clientDAO.newClient(client);
+        } catch (ExceptionDAO ex) {
+            System.out.println("[CLIENT SERVICE] ERRO: Falha ao inserir novo cliente.");
+            Logger.getLogger(ClientService.class.getName()).log(Level.SEVERE, null, ex);
+
+        } catch (SQLException ex) {
+            System.out.println("[CLIENT SERVICE] ERRO: Falha ao inserir novo cliente.");
+            Logger.getLogger(ClientService.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        
+    }
 }

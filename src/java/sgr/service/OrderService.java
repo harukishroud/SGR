@@ -85,7 +85,7 @@ public class OrderService {
             OrderDAO orderDAO = new OrderDAO();
             orderDAO.newOrder(order);           
         } catch (SQLException ex){
-            System.out.println("[ORDER SERVICE] ERRO: Falha ao criar novo pedido!");
+            System.out.println("[ORDER SERVICE] ERRO: Falha ao criar novo pedido!" + ex);
         }
     }
     

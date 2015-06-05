@@ -14,7 +14,7 @@ public class SessionBean {
     private long codigo;
     private int status;
     private int c_codigo;
-    private long c_cpf;
+    private String c_cpf;
     
     // <editor-fold defaultstate="collapsed" desc="GET and SET"> 
     public long getCodigo() {
@@ -41,11 +41,11 @@ public class SessionBean {
         this.c_codigo = c_codigo;
     }
 
-    public long getC_cpf() {
+    public String getC_cpf() {
         return c_cpf;
     }
 
-    public void setC_cpf(long c_cpf) {
+    public void setC_cpf(String c_cpf) {
         this.c_cpf = c_cpf;
     }    
     // </editor-fold>
